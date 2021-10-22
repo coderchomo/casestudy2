@@ -1,5 +1,6 @@
 package view.menu;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import control.GradeManager;
 import control.StudentFileManager;
 import control.StudentManager;
@@ -17,11 +18,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
+     private static  StudentFileManager studentFileManager=new StudentFileManager();
+    private static StudentManager studentManager=new StudentManager();
+
     public static void menu() {
 
         GradeManager gradeManager=new GradeManager();
-        StudentManager studentManager=new StudentManager();
-        StudentFileManager studentFileManager=new StudentFileManager();
+
 
         GradeStorage gradeStorage=new GradeStorage();
         StudentStorage studentStorage=new StudentStorage();
@@ -45,6 +48,7 @@ public class Menu {
             System.out.println("2.Edit Student");
             System.out.println("3.Remove Student");
             System.out.println("4.Display Student");
+            System.out.println("5.Search Student By Id");
             System.out.println("Choose some thing");
             Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextInt();
@@ -63,6 +67,12 @@ public class Menu {
                     studentManager.remove(index1);
                 case 4:
                     studentManager.showAll();
+                    break;
+                case 5:
+                    searchStudentById();
+                    break;
+                case 420:
+                    System.out.println("Winner winner chicken dinner");
                     break;
                 case 0:
                     System.exit(0);
@@ -111,5 +121,12 @@ public class Menu {
         Scanner scanner=new Scanner(System.in);
         System.out.println("Enter name");
         String name=scanner.nextLine();
+    }
+    public static void searchStudentById(){
+        System.out.println("Enter Student Id");
+        Scanner scanner=new Scanner(System.in);
+        String id= scanner.nextLine();
+        Student student= studentManager.searchById(id);
+        System.out.println(student.toString());
     }
 }
